@@ -1,13 +1,9 @@
-import { Box, CircularProgress } from "@mui/material";
+import { CircularProgress } from "@mui/material";
 import Head from "next/head";
-// import Image from 'next/image'
-import { useRef, useState } from "react";
 import PokemonList from "../components/PokemonList";
-import useIntersectionObserver from "../hooks/useIntersectionObserver";
 import { usePokemons } from "../hooks/usePokemons";
 
 const Home: React.FC = () => {
-  // const [list, setList] = useState(initialList);
   const { data, error, loading, fetchMore } = usePokemons({
     offset: 0,
   });

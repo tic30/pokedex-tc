@@ -1,4 +1,4 @@
-import { Box, Button } from "@mui/material";
+import { Button, CircularProgress } from "@mui/material";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -16,7 +16,8 @@ const PolemonDetailPage: React.FC = () => {
   } = useSinglePokemon({
     name,
   });
-  if (loading || !pokemonData) {
+
+  if (error) {
     return null;
   }
 
@@ -29,7 +30,11 @@ const PolemonDetailPage: React.FC = () => {
       <Button startIcon={<KeyboardArrowLeftIcon />} component={Link} href="/">
         Back
       </Button>
-      <PokemonCard pokemonData={pokemonData.pokemonByName} />
+      {loading ? (
+        <CircularProgress />
+      ) : (
+        <PokemonCard pokemonData={pokemonData!!.pokemonByName} />
+      )}
     </>
   );
 };
