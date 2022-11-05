@@ -1,3 +1,4 @@
+import React from "react";
 import Link from "next/link";
 import {
   Card,
@@ -16,52 +17,51 @@ interface PokemonCardProps {
   compressed?: boolean;
 }
 
-const PokemonCard: React.FC<PokemonCardProps> = ({
-  pokemonData,
-  compressed = false,
-}) => {
-  const { asPath } = useRouter();
-  const {
-    image,
-    name,
-    types,
-    isFavorite,
-    maxCP,
-    maxHP,
-    sound,
-    weight,
-    height,
-  } = pokemonData;
+const PokemonCard = React.forwardRef<HTMLDivElement, PokemonCardProps>(
+  ({ pokemonData, compressed = false }, ref) => {
+    const { asPath } = useRouter();
+    const {
+      image,
+      name,
+      types,
+      isFavorite,
+      maxCP,
+      maxHP,
+      sound,
+      weight,
+      height,
+    } = pokemonData;
 
-  return (
-    <Card>
-      <CardActionArea
-        LinkComponent={Link}
-        href={`/${name}`}
-        disabled={asPath !== "/"}
-      >
-        <CardMedia
-          component="img"
-          image={image}
-          alt={`${name} image`}
-          sx={styles.image}
-        />
-      </CardActionArea>
-      <CardContent>
-        <Typography variant="h5">{name}</Typography>
-        <Typography variant="body2">{types.join(", ")}</Typography>
-        {isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
-        {!compressed && (
-          <>
-            {/* {maxCP}
+    return (
+      <Card ref={ref}>
+        <CardActionArea
+          LinkComponent={Link}
+          href={`/${name}`}
+          disabled={asPath !== "/"}
+        >
+          <CardMedia
+            component="img"
+            image={image}
+            alt={`${name} image`}
+            sx={styles.image}
+          />
+        </CardActionArea>
+        <CardContent>
+          <Typography variant="h5">{name}</Typography>
+          <Typography variant="body2">{types.join(", ")}</Typography>
+          {isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+          {!compressed && (
+            <>
+              {/* {maxCP}
             {maxHP}
             {weight}
             {height} */}
-          </>
-        )}
-      </CardContent>
-    </Card>
-  );
-};
+            </>
+          )}
+        </CardContent>
+      </Card>
+    );
+  }
+);
 
 export default PokemonCard;

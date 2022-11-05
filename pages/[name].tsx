@@ -1,15 +1,12 @@
-import { Box } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import PokemonCard from "../components/PokemonCard";
 import { useSinglePokemon } from "../hooks/useSinglePokemon";
+import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 
-interface PolemonDetailPageProps {
-  pokemonData: Pokemon;
-}
-
-const PolemonDetailPage: React.FC<PolemonDetailPageProps> = () => {
+const PolemonDetailPage: React.FC = () => {
   const { asPath } = useRouter();
   const name = asPath.slice(1).toLowerCase();
   const {
@@ -19,7 +16,7 @@ const PolemonDetailPage: React.FC<PolemonDetailPageProps> = () => {
   } = useSinglePokemon({
     name,
   });
-  if (loading) {
+  if (loading || !pokemonData) {
     return null;
   }
 
@@ -29,7 +26,9 @@ const PolemonDetailPage: React.FC<PolemonDetailPageProps> = () => {
         <title>{`Pokedex - ${name}`}</title>
         <meta name="description" content={`Detail about ${name}`} />
       </Head>
-      <Link href="/">Back</Link>
+      <Button startIcon={<KeyboardArrowLeftIcon />} component={Link} href="/">
+        Back
+      </Button>
       <PokemonCard pokemonData={pokemonData.pokemonByName} />
     </>
   );

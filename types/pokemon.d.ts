@@ -16,3 +16,14 @@ interface Pokemon {
     sound: string;
     isFavorite: boolean
 }
+
+interface PokemonConnection {
+    pokemons: {
+        count: number;
+        edges: Pokemon[]
+    }
+}
+
+interface PokemonByName {
+    pokemonByName: Pokemon 
+}

@@ -1,4 +1,4 @@
-import { gql, useQuery } from "@apollo/client";
+import { gql, OperationVariables, QueryResult, useQuery } from "@apollo/client";
 
 export const BulkPokemonQuery = gql`
 query Pokemons($offset: Int!) {
@@ -14,16 +14,8 @@ query Pokemons($offset: Int!) {
 }
 `;
 
-export const usePokemons = (variables: any) => {
-    const defaultVariables = {
-        offset: 0
-    }
-    const result = useQuery(BulkPokemonQuery, {
-        variables: {
-            ...defaultVariables,
-            ...variables
-        }
+export const usePokemons = (variables: OperationVariables): QueryResult<PokemonConnection> => {
+    return useQuery(BulkPokemonQuery, {
+        variables
     });
-
-    return result;
 };

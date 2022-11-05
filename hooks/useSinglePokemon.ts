@@ -1,4 +1,4 @@
-import { gql, useQuery } from "@apollo/client";
+import { gql, OperationVariables, QueryResult, useQuery } from "@apollo/client";
 
 export const SinglePokemonQuery = gql`
 query PokemonByName($name: String!) {
@@ -32,10 +32,8 @@ query PokemonByName($name: String!) {
 }
 `;
 
-export const useSinglePokemon = (variables: any) => {
-    const result = useQuery(SinglePokemonQuery, {
+export const useSinglePokemon = (variables: OperationVariables): QueryResult<PokemonByName> => {
+  return useQuery(SinglePokemonQuery, {
         variables
     });
-
-    return result;
 };
