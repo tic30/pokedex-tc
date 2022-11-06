@@ -5,6 +5,7 @@ query Pokemons($offset: Int!) {
   pokemons(query: { limit: 20, offset: $offset }) {
     count
     edges {
+      id
       name
       image
       types

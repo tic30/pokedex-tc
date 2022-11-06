@@ -1,10 +1,12 @@
 import React from "react";
 import Link from "next/link";
 import {
+  Box,
   Card,
   CardActionArea,
   CardContent,
   CardMedia,
+  IconButton,
   Typography,
 } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
@@ -14,13 +16,15 @@ import { useRouter } from "next/router";
 
 interface PokemonCardProps {
   pokemonData: Pokemon;
+  favoriteActions: any;
   compressed?: boolean;
 }
 
 const PokemonCard = React.forwardRef<HTMLDivElement, PokemonCardProps>(
-  ({ pokemonData, compressed = false }, ref) => {
+  ({ pokemonData, favoriteActions, compressed = false }, ref) => {
     const { asPath } = useRouter();
     const {
+      id,
       image,
       name,
       types,
@@ -31,9 +35,23 @@ const PokemonCard = React.forwardRef<HTMLDivElement, PokemonCardProps>(
       weight,
       height,
     } = pokemonData;
+    const { setFavorite, setUnfavorite } = favoriteActions;
+
+    const handleFavorite = () => {
+      const mutationOptions = {
+        variables: {
+          id,
+        },
+      };
+      if (isFavorite) {
+        setUnfavorite(mutationOptions);
+      } else {
+        setFavorite(mutationOptions);
+      }
+    };
 
     return (
-      <Card ref={ref}>
+      <Card ref={ref} sx={styles.card}>
         <CardActionArea
           LinkComponent={Link}
           href={`/${name}`}
@@ -46,10 +64,20 @@ const PokemonCard = React.forwardRef<HTMLDivElement, PokemonCardProps>(
             sx={styles.image}
           />
         </CardActionArea>
-        <CardContent>
-          <Typography variant="h5">{name}</Typography>
-          <Typography variant="body2">{types.join(", ")}</Typography>
-          {isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+        <CardContent sx={styles.content}>
+          <Box sx={styles.titleWrapper}>
+            <Box>
+              <Typography variant="h6">{name}</Typography>
+              <Typography variant="body2">{types.join(", ")}</Typography>
+            </Box>
+            <IconButton aria-label="Set favorite" onClick={handleFavorite}>
+              {isFavorite ? (
+                <FavoriteIcon color="error" />
+              ) : (
+                <FavoriteBorderIcon color="error" />
+              )}
+            </IconButton>
+          </Box>
           {!compressed && (
             <>
               {/* {maxCP}

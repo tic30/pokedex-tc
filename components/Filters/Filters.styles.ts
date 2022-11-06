@@ -11,13 +11,15 @@ const styles: CSSObject = {
         gap: 2,
         flexWrap: 'wrap',
         '> *': {
-            flexGrow: 1
+            flexGrow: 1,
         }
     },
     gridListToggle: {
+        borderRadius: 3,
         flexGrow: 0,
         'button': {
-            width: '50%'
+            width: '50%',
+            borderRadius: 3,
         }
     }
 };

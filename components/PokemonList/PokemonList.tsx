@@ -3,15 +3,22 @@ import { Box } from "@mui/material";
 import useIntersectionObserver from "../../hooks/useIntersectionObserver";
 import PokemonCard from "../PokemonCard";
 import styles from "./PokemonList.styles";
+import { useFavorite } from "../../hooks/useFavorite";
 
 interface PokemonListProps {
   items: Pokemon[];
   fetchMore: any;
+  refetch: any;
 }
 
-const PokemonList: React.FC<PokemonListProps> = ({ items, fetchMore }) => {
+const PokemonList: React.FC<PokemonListProps> = ({
+  items,
+  fetchMore,
+  refetch,
+}) => {
   const [currentLastItem, setCurrentLastItem] = useState();
   const isEndofList = useIntersectionObserver(currentLastItem);
+  const favoriteActions = useFavorite(refetch);
 
   const registerEndElement = (item: any) => {
     setCurrentLastItem(item);
@@ -31,6 +38,7 @@ const PokemonList: React.FC<PokemonListProps> = ({ items, fetchMore }) => {
             <PokemonCard
               key={pokemonData.name}
               pokemonData={pokemonData}
+              favoriteActions={favoriteActions}
               compressed={true}
               ref={(item) => {
                 if (index === items.length - 1) {

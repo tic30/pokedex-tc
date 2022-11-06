@@ -10,6 +10,7 @@ import {
   TextField,
 } from "@mui/material";
 import { useType } from "../../hooks/useType";
+import styles from "./TypeSelector.styles";
 
 interface TypeSelector {
   type: string;
@@ -34,7 +35,9 @@ const TypeSelector: React.FC<TypeSelector> = ({ type, setType }) => {
         value={type}
         label="Select type"
         onChange={handleChange}
+        sx={styles.select}
       >
+        <MenuItem value="">-</MenuItem>
         {types!!.pokemonTypes.map((t) => (
           <MenuItem value={t}>{t}</MenuItem>
         ))}

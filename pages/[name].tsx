@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import PokemonCard from "../components/PokemonCard";
 import { useSinglePokemon } from "../hooks/useSinglePokemon";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
+import { useFavorite } from "../hooks/useFavorite";
 
 const PolemonDetailPage: React.FC = () => {
   const { asPath } = useRouter();
@@ -13,9 +14,11 @@ const PolemonDetailPage: React.FC = () => {
     data: pokemonData,
     error,
     loading,
+    refetch,
   } = useSinglePokemon({
     name,
   });
+  const favoriteActions = useFavorite(refetch);
 
   if (error) {
     return null;
@@ -33,7 +36,10 @@ const PolemonDetailPage: React.FC = () => {
       {loading ? (
         <CircularProgress />
       ) : (
-        <PokemonCard pokemonData={pokemonData!!.pokemonByName} />
+        <PokemonCard
+          pokemonData={pokemonData!!.pokemonByName}
+          favoriteActions={favoriteActions}
+        />
       )}
     </>
   );

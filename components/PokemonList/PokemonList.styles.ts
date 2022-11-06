@@ -9,7 +9,7 @@ const styles: CSSObject = {
     list: {
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
-        gap: 3,
+        gap: 2,
         p: 2,
         backgroundColor: blueGrey[50]
     }

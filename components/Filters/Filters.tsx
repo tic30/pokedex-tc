@@ -2,6 +2,7 @@ import { Box, Button, ButtonGroup, Tab, Tabs, TextField } from "@mui/material";
 import TypeSelector from "../TypeSelector";
 import ViewModuleIcon from "@mui/icons-material/ViewModule";
 import TableRowsIcon from "@mui/icons-material/TableRows";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import styles from "./Filters.styles";
 
 const Filters: React.FC<any> = ({ filters, setFilters }) => {
@@ -18,7 +19,12 @@ const Filters: React.FC<any> = ({ filters, setFilters }) => {
         aria-label="See all or favorite pokemons"
       >
         <Tab value={false} label="All" />
-        <Tab value={true} label="Favorites" />
+        <Tab
+          value={true}
+          icon={<FavoriteIcon />}
+          iconPosition="start"
+          label="Favorites"
+        />
       </Tabs>
       <Box sx={styles.secondRow}>
         <TextField label="Search" variant="outlined" />

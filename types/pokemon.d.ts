@@ -4,6 +4,7 @@ interface PokemonDimension {
 }
 
 interface Pokemon {
+    id: string;
     name: string;
     weight: PokemonDimension;
     height: PokemonDimension;
