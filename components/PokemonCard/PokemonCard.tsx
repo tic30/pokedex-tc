@@ -93,6 +93,7 @@ const PokemonCard = React.forwardRef<HTMLDivElement, PokemonCardProps>(
                 {showDetail && (
                   <Typography
                     variant={showDetail ? "h5" : "h6"}
+                    sx={styles.titleId}
                   >{`#${id}`}</Typography>
                 )}
               </Box>

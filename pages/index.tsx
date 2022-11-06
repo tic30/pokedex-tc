@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Head from "next/head";
 import styled from "@emotion/styled";
 import { CircularProgress } from "@mui/material";
@@ -26,12 +26,6 @@ const Home: React.FC = () => {
     isFavorite: filters.isFavorite ? filters.isFavorite : undefined,
   });
   const list = data?.pokemons?.edges || []; //TODO: build empty page
-  //.filter(
-  // (item) =>
-  //   item.name.includes(filters.search) &&
-  //   (filters.type ? item.types.includes(filters.type) : true) &&
-  //   (filters.isFavorite ? item.isFavorite : true)
-  // ) || []; //TODO: build empty page
   const totalCount = data?.pokemons?.count || 0;
 
   const onFetchMore = () => {
@@ -47,6 +41,10 @@ const Home: React.FC = () => {
       });
     }
   };
+
+  useEffect(() => {
+    refetch();
+  }, [filters.isFavorite]);
 
   return (
     <>

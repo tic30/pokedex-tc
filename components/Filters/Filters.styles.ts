@@ -15,6 +15,7 @@ const styles: CSSObject = {
         }
     },
     search: {
+        width: ['100%', 'auto', 'auto'],
         '& .MuiOutlinedInput-notchedOutline': {
             borderRadius: 3,
         }

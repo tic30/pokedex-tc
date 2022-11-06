@@ -4,6 +4,8 @@ import { grey } from '@mui/material/colors';
 const styles: CSSObject = {
     card: {
         borderRadius: 3,
+        display: 'flex',
+        flexDirection: 'column'
     },
     image: {
         width: '70%',
@@ -12,6 +14,8 @@ const styles: CSSObject = {
         objectFit: 'contain'
     },
     content: {
+        flexGrow: 1,
+        pr: 1,
         backgroundColor: grey[50]
     },
     titleWrapper: {
@@ -21,10 +25,10 @@ const styles: CSSObject = {
     },
     title: {
         display: 'flex',
-        gap: 2,
-        '> *:last-child': {
-            color: grey[600]
-        }
+        gap: 2
+    },
+    titleId: {
+        color: grey[600]
     },
     cpWrapper: {
         display: 'flex',
