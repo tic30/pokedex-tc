@@ -2,17 +2,19 @@ import { useEffect, useState } from "react";
 import { Box } from "@mui/material";
 import useIntersectionObserver from "../../hooks/useIntersectionObserver";
 import PokemonCard from "../PokemonCard";
-import styles from "./PokemonList.styles";
+import styles, { compressedStyles } from "./PokemonList.styles";
 import { useFavorite } from "../../hooks/useFavorite";
 
 interface PokemonListProps {
   items: Pokemon[];
+  isGrid: boolean;
   fetchMore: any;
   refetch: any;
 }
 
 const PokemonList: React.FC<PokemonListProps> = ({
   items,
+  isGrid,
   fetchMore,
   refetch,
 }) => {
@@ -32,14 +34,14 @@ const PokemonList: React.FC<PokemonListProps> = ({
 
   return (
     <Box sx={styles.listWrapper}>
-      <Box sx={styles.list}>
+      <Box sx={isGrid ? styles.list : compressedStyles.list}>
         {items.map((pokemonData, index) => {
           return (
             <PokemonCard
               key={pokemonData.name}
               pokemonData={pokemonData}
               favoriteActions={favoriteActions}
-              compressed={true}
+              compressed={!isGrid}
               ref={(item) => {
                 if (index === items.length - 1) {
                   registerEndElement(item);

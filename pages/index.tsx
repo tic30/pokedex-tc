@@ -13,16 +13,25 @@ const PageContainer = styled.div`
 `;
 
 const Home: React.FC = () => {
-  const { data, error, loading, fetchMore, refetch } = usePokemons({
-    offset: 0,
-  });
   const [filters, setFilters] = useState({
-    searchPhrase: "",
+    search: "",
     type: "",
     isFavorite: false,
     isGrid: true,
   });
-  const list = data?.pokemons?.edges || [];
+  const { data, error, loading, fetchMore, refetch } = usePokemons({
+    offset: 0,
+    search: filters.search,
+    type: filters.type,
+    isFavorite: filters.isFavorite ? filters.isFavorite : undefined,
+  });
+  const list = data?.pokemons?.edges || []; //TODO: build empty page
+  //.filter(
+  // (item) =>
+  //   item.name.includes(filters.search) &&
+  //   (filters.type ? item.types.includes(filters.type) : true) &&
+  //   (filters.isFavorite ? item.isFavorite : true)
+  // ) || []; //TODO: build empty page
   const totalCount = data?.pokemons?.count || 0;
 
   const onFetchMore = () => {
@@ -47,7 +56,12 @@ const Home: React.FC = () => {
       </Head>
       <PageContainer>
         <Filters filters={filters} setFilters={setFilters} />
-        <PokemonList items={list} fetchMore={onFetchMore} refetch={refetch} />
+        <PokemonList
+          items={list}
+          fetchMore={onFetchMore}
+          refetch={refetch}
+          isGrid={filters.isGrid}
+        />
       </PageContainer>
       {loading && <CircularProgress />}
     </>

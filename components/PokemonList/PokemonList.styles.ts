@@ -5,13 +5,21 @@ const styles: CSSObject = {
     listWrapper: {
         flexGrow: 1,
         overflowY: 'auto',
+        backgroundColor: blueGrey[50]
     },
     list: {
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
         gap: 2,
         p: 2,
-        backgroundColor: blueGrey[50]
+    }
+};
+
+export const compressedStyles: CSSObject = {
+    list: {
+        ...styles.list,
+        gridTemplateColumns: '1fr',
+        gap: 1
     }
 };
 

@@ -20,10 +20,16 @@ query PokemonByName($name: String!) {
       evolutions {
         id
         name
+        image
+        types
+        isFavorite
       }
       previousEvolutions {
         id
         name
+        image
+        types
+        isFavorite
       }
       image
       sound

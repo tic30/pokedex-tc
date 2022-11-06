@@ -1,0 +1,1 @@
+export const sortById = (a: Pokemon, b: Pokemon) => parseInt(a.id) - parseInt(b.id);

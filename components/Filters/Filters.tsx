@@ -8,6 +8,10 @@ import styles from "./Filters.styles";
 const Filters: React.FC<any> = ({ filters, setFilters }) => {
   const { isGrid, isFavorite } = filters;
 
+  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFilters((f) => ({ ...f, search: event.target.value }));
+  };
+
   return (
     <Box sx={styles.wrapper}>
       <Tabs
@@ -27,7 +31,12 @@ const Filters: React.FC<any> = ({ filters, setFilters }) => {
         />
       </Tabs>
       <Box sx={styles.secondRow}>
-        <TextField label="Search" variant="outlined" />
+        <TextField
+          label="Search"
+          variant="outlined"
+          onChange={handleSearch}
+          sx={styles.search}
+        />
         <TypeSelector
           type={filters.type}
           setType={(t) => setFilters((f) => ({ ...f, type: t }))}

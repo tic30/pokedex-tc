@@ -1,8 +1,16 @@
 import { gql, OperationVariables, QueryResult, useQuery } from "@apollo/client";
 
 export const BulkPokemonQuery = gql`
-query Pokemons($offset: Int!) {
-  pokemons(query: { limit: 20, offset: $offset }) {
+query Pokemons($offset: Int!, $search: String, $type: String, $isFavorite: Boolean) {
+  pokemons(query: { 
+    limit: 20,
+    offset: $offset,
+    search: $search,
+    filter: {
+      type: $type,
+      isFavorite: $isFavorite
+    }
+  }) {
     count
     edges {
       id

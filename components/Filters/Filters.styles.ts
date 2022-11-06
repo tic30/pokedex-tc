@@ -14,6 +14,11 @@ const styles: CSSObject = {
             flexGrow: 1,
         }
     },
+    search: {
+        '& .MuiOutlinedInput-notchedOutline': {
+            borderRadius: 3,
+        }
+    },
     gridListToggle: {
         borderRadius: 3,
         flexGrow: 0,
