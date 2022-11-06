@@ -1,13 +1,9 @@
-import { useState } from "react";
 import {
-  Box,
-  Button,
   FormControl,
   InputLabel,
   MenuItem,
   Select,
   SelectChangeEvent,
-  TextField,
 } from "@mui/material";
 import { useType } from "../../hooks/useType";
 import styles from "./TypeSelector.styles";
@@ -39,7 +35,9 @@ const TypeSelector: React.FC<TypeSelector> = ({ type, setType }) => {
       >
         <MenuItem value="">-</MenuItem>
         {types!!.pokemonTypes.map((t) => (
-          <MenuItem value={t}>{t}</MenuItem>
+          <MenuItem key={`type-${t}`} value={t}>
+            {t}
+          </MenuItem>
         ))}
       </Select>
     </FormControl>

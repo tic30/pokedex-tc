@@ -184,4 +184,6 @@ const PokemonCard = React.forwardRef<HTMLDivElement, PokemonCardProps>(
   }
 );
 
+PokemonCard.displayName = "PokemonCard";
+
 export default PokemonCard;

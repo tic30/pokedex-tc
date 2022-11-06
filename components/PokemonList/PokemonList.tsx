@@ -30,7 +30,7 @@ const PokemonList: React.FC<PokemonListProps> = ({
     if (isEndofList) {
       fetchMore();
     }
-  }, [isEndofList]);
+  }, [isEndofList, fetchMore]);
 
   return (
     <Box sx={styles.listWrapper}>
