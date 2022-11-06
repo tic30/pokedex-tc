@@ -73,7 +73,7 @@ const styles: CSSObject = {
 export const compressedStyles: CSSObject = {
     card: {
         ...styles.card,
-        display: 'flex'
+        flexDirection: 'row'
     },
     imageWrapper: {
         width: '10rem',

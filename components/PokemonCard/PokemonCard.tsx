@@ -14,6 +14,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import VolumeUpIcon from "@mui/icons-material/VolumeUp";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import { motion } from "framer-motion";
 import styles, { compressedStyles } from "./PokemonCard.styles";
 import { sortById } from "../../utils/sortById";
 
@@ -67,7 +68,15 @@ const PokemonCard = React.forwardRef<HTMLDivElement, PokemonCardProps>(
     };
 
     return (
-      <Card ref={ref} sx={compressed ? compressedStyles.card : styles.card}>
+      <Card
+        component={motion.div}
+        ref={ref}
+        sx={compressed ? compressedStyles.card : styles.card}
+        layout
+        animate={{ opacity: 1 }}
+        initial={{ opacity: 0 }}
+        exit={{ opacity: 0 }}
+      >
         <CardActionArea
           LinkComponent={Link}
           href={`/${name}`}
