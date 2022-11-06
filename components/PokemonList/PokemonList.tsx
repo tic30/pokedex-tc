@@ -5,7 +5,6 @@ import PokemonCard from "../PokemonCard";
 import styles, { compressedStyles } from "./PokemonList.styles";
 import { RefetchType, useFavorite } from "../../hooks/useFavorite";
 import { FiltersType } from "../Filters";
-import { AnimatePresence } from "framer-motion";
 
 interface PokemonListProps {
   items: Pokemon[];
@@ -40,23 +39,21 @@ const PokemonList: React.FC<PokemonListProps> = ({
   return (
     <Box sx={styles.listWrapper}>
       <Box sx={isGrid ? styles.list : compressedStyles.list}>
-        <AnimatePresence initial={false}>
-          {items.map((pokemonData, index) => {
-            return (
-              <PokemonCard
-                key={pokemonData.name}
-                pokemonData={pokemonData}
-                favoriteActions={favoriteActions}
-                compressed={!isGrid}
-                ref={(item) => {
-                  if (index === items.length - 1) {
-                    registerEndElement(item);
-                  }
-                }}
-              />
-            );
-          })}
-        </AnimatePresence>
+        {items.map((pokemonData, index) => {
+          return (
+            <PokemonCard
+              key={pokemonData.name}
+              pokemonData={pokemonData}
+              favoriteActions={favoriteActions}
+              compressed={!isGrid}
+              ref={(item) => {
+                if (index === items.length - 1) {
+                  registerEndElement(item);
+                }
+              }}
+            />
+          );
+        })}
       </Box>
     </Box>
   );
