@@ -24,21 +24,23 @@ const PokemonList: React.FC<PokemonListProps> = ({ items, fetchMore }) => {
   }, [isEndofList]);
 
   return (
-    <Box sx={styles.list}>
-      {items.map((pokemonData, index) => {
-        return (
-          <PokemonCard
-            key={pokemonData.name}
-            pokemonData={pokemonData}
-            compressed={true}
-            ref={(item) => {
-              if (index === items.length - 1) {
-                registerEndElement(item);
-              }
-            }}
-          />
-        );
-      })}
+    <Box sx={styles.listWrapper}>
+      <Box sx={styles.list}>
+        {items.map((pokemonData, index) => {
+          return (
+            <PokemonCard
+              key={pokemonData.name}
+              pokemonData={pokemonData}
+              compressed={true}
+              ref={(item) => {
+                if (index === items.length - 1) {
+                  registerEndElement(item);
+                }
+              }}
+            />
+          );
+        })}
+      </Box>
     </Box>
   );
 };

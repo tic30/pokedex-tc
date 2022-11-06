@@ -27,3 +27,7 @@ interface PokemonConnection {
 interface PokemonByName {
     pokemonByName: Pokemon 
 }
+
+interface PokemonTypesQueryResult {
+    pokemonTypes: string[]
+}
