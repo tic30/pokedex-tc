@@ -3,26 +3,31 @@ import { Box } from "@mui/material";
 import useIntersectionObserver from "../../hooks/useIntersectionObserver";
 import PokemonCard from "../PokemonCard";
 import styles, { compressedStyles } from "./PokemonList.styles";
-import { useFavorite } from "../../hooks/useFavorite";
+import { RefetchType, useFavorite } from "../../hooks/useFavorite";
+import { FiltersType } from "../Filters";
+import { AnimatePresence } from "framer-motion";
 
 interface PokemonListProps {
   items: Pokemon[];
-  isGrid: boolean;
-  fetchMore: any;
-  refetch: any;
+  filters: FiltersType;
+  fetchMore: () => void;
+  refetch: RefetchType;
 }
 
 const PokemonList: React.FC<PokemonListProps> = ({
   items,
-  isGrid,
+  filters,
   fetchMore,
   refetch,
 }) => {
-  const [currentLastItem, setCurrentLastItem] = useState();
+  const [currentLastItem, setCurrentLastItem] = useState<HTMLDivElement | null>(
+    null
+  );
   const isEndofList = useIntersectionObserver(currentLastItem);
-  const favoriteActions = useFavorite(refetch);
+  const { isGrid, isFavorite: isFavoriteTab } = filters;
+  const favoriteActions = useFavorite(refetch, isFavoriteTab);
 
-  const registerEndElement = (item: any) => {
+  const registerEndElement = (item: HTMLDivElement | null) => {
     setCurrentLastItem(item);
   };
 
@@ -35,21 +40,23 @@ const PokemonList: React.FC<PokemonListProps> = ({
   return (
     <Box sx={styles.listWrapper}>
       <Box sx={isGrid ? styles.list : compressedStyles.list}>
-        {items.map((pokemonData, index) => {
-          return (
-            <PokemonCard
-              key={pokemonData.name}
-              pokemonData={pokemonData}
-              favoriteActions={favoriteActions}
-              compressed={!isGrid}
-              ref={(item) => {
-                if (index === items.length - 1) {
-                  registerEndElement(item);
-                }
-              }}
-            />
-          );
-        })}
+        <AnimatePresence initial={false}>
+          {items.map((pokemonData, index) => {
+            return (
+              <PokemonCard
+                key={pokemonData.name}
+                pokemonData={pokemonData}
+                favoriteActions={favoriteActions}
+                compressed={!isGrid}
+                ref={(item) => {
+                  if (index === items.length - 1) {
+                    registerEndElement(item);
+                  }
+                }}
+              />
+            );
+          })}
+        </AnimatePresence>
       </Box>
     </Box>
   );

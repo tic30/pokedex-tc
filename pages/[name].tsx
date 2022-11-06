@@ -14,11 +14,10 @@ const PolemonDetailPage: React.FC = () => {
     data: pokemonData,
     error,
     loading,
-    refetch,
   } = useSinglePokemon({
     name,
   });
-  const favoriteActions = useFavorite(refetch);
+  const favoriteActions = useFavorite();
 
   if (error) {
     return null;
@@ -37,7 +36,7 @@ const PolemonDetailPage: React.FC = () => {
           href="/"
           sx={{ mb: 2 }}
         >
-          Back
+          Back to list
         </Button>
         {loading ? (
           <CircularProgress />

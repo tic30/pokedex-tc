@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction } from "react";
 import { Box, Button, ButtonGroup, Tab, Tabs, TextField } from "@mui/material";
 import TypeSelector from "../TypeSelector";
 import ViewModuleIcon from "@mui/icons-material/ViewModule";
@@ -5,7 +6,19 @@ import TableRowsIcon from "@mui/icons-material/TableRows";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import styles from "./Filters.styles";
 
-const Filters: React.FC<any> = ({ filters, setFilters }) => {
+export interface FiltersType {
+  search: string;
+  type: string;
+  isFavorite: boolean;
+  isGrid: boolean;
+}
+
+interface FiltersProps {
+  filters: FiltersType;
+  setFilters: Dispatch<SetStateAction<FiltersType>>;
+}
+
+const Filters: React.FC<FiltersProps> = ({ filters, setFilters }) => {
   const { isGrid, isFavorite } = filters;
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -17,7 +30,7 @@ const Filters: React.FC<any> = ({ filters, setFilters }) => {
       <Tabs
         variant="fullWidth"
         value={isFavorite}
-        onChange={(event: React.SyntheticEvent, newValue: string) =>
+        onChange={(event: React.SyntheticEvent, newValue: boolean) =>
           setFilters((f) => ({ ...f, isFavorite: newValue }))
         }
         aria-label="See all or favorite pokemons"

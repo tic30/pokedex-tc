@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Head from "next/head";
 import styled from "@emotion/styled";
 import { CircularProgress } from "@mui/material";
-import Filters from "../components/Filters";
+import Filters, { FiltersType } from "../components/Filters";
 import PokemonList from "../components/PokemonList";
 import { usePokemons } from "../hooks/usePokemons";
 
@@ -13,7 +13,7 @@ const PageContainer = styled.div`
 `;
 
 const Home: React.FC = () => {
-  const [filters, setFilters] = useState({
+  const [filters, setFilters] = useState<FiltersType>({
     search: "",
     type: "",
     isFavorite: false,
@@ -35,16 +35,18 @@ const Home: React.FC = () => {
           offset: list.length,
         },
         updateQuery: (
-          prevResult: PokemonConnection,
-          { fetchMoreResult }: { fetchMoreResult: PokemonConnection }
+          prevResult: BulkPokemonQueryType,
+          { fetchMoreResult }: { fetchMoreResult: BulkPokemonQueryType }
         ) => fetchMoreResult ?? prevResult,
       });
     }
   };
 
   useEffect(() => {
-    refetch();
-  }, [filters.isFavorite]);
+    if (filters.isFavorite) {
+      refetch();
+    }
+  }, [filters.isFavorite, refetch]);
 
   return (
     <>
@@ -58,7 +60,7 @@ const Home: React.FC = () => {
           items={list}
           fetchMore={onFetchMore}
           refetch={refetch}
-          isGrid={filters.isGrid}
+          filters={filters}
         />
       </PageContainer>
       {loading && <CircularProgress />}

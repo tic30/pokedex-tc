@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import Link from "next/link";
 import {
   Box,
@@ -17,10 +17,11 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { motion } from "framer-motion";
 import styles, { compressedStyles } from "./PokemonCard.styles";
 import { sortById } from "../../utils/sortById";
+import { UseFavoriteReturnType } from "../../hooks/useFavorite";
 
 interface PokemonCardProps {
   pokemonData: Pokemon;
-  favoriteActions: any;
+  favoriteActions: UseFavoriteReturnType;
   compressed?: boolean;
   showDetail?: boolean;
 }
@@ -159,28 +160,27 @@ const PokemonCard = React.forwardRef<HTMLDivElement, PokemonCardProps>(
               {previousEvolutions.length > 0 || evolutions.length > 0 ? (
                 <Box sx={styles.evolutions}>
                   {sortedPreviousEvolutions.map((item) => (
-                    <>
+                    <Fragment key={item.name}>
                       <PokemonCard
-                        key={item.name}
                         pokemonData={item}
                         favoriteActions={favoriteActions}
                       />
                       <ArrowForwardIosIcon />
-                    </>
+                    </Fragment>
                   ))}
                   <PokemonCard
                     pokemonData={pokemonData}
                     favoriteActions={favoriteActions}
                   />
                   {sortedEvolutions.map((item) => (
-                    <>
+                    <Fragment key={item.name}>
                       <ArrowForwardIosIcon />
                       <PokemonCard
                         key={item.name}
                         pokemonData={item}
                         favoriteActions={favoriteActions}
                       />
-                    </>
+                    </Fragment>
                   ))}
                 </Box>
               ) : (

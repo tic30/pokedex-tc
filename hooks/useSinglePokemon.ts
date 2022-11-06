@@ -1,7 +1,7 @@
-import { gql, OperationVariables, QueryResult, useQuery } from "@apollo/client";
+import { gql, QueryResult, useQuery } from "@apollo/client";
 
 export const SinglePokemonQuery = gql`
-query PokemonByName($name: String!) {
+  query PokemonByName($name: String!) {
     pokemonByName(name: $name) {
       id
       number
@@ -9,7 +9,7 @@ query PokemonByName($name: String!) {
       weight {
         minimum
         maximum
-      } 
+      }
       height {
         minimum
         maximum
@@ -35,11 +35,13 @@ query PokemonByName($name: String!) {
       sound
       isFavorite
     }
-}
+  }
 `;
 
-export const useSinglePokemon = (variables: OperationVariables): QueryResult<PokemonByName> => {
-  return useQuery(SinglePokemonQuery, {
-        variables
-    });
+export const useSinglePokemon = (
+  variables: SinglePokemonQueryInput
+): QueryResult<SinglePokemonQueryType> => {
+  return useQuery<SinglePokemonQueryType>(SinglePokemonQuery, {
+    variables,
+  });
 };

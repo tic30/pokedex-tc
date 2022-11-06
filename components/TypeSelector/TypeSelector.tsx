@@ -10,13 +10,13 @@ import styles from "./TypeSelector.styles";
 
 interface TypeSelector {
   type: string;
-  setType: any;
+  setType: (newType: string) => void;
 }
 const TypeSelector: React.FC<TypeSelector> = ({ type, setType }) => {
   const { data: types, error, loading } = useType();
 
   const handleChange = (event: SelectChangeEvent) => {
-    setType(event.target.value as string);
+    setType(event.target.value);
   };
 
   if (loading || error) {
