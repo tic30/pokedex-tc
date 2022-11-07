@@ -6,6 +6,7 @@ import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import PokemonCard from "../components/PokemonCard";
 import { useSinglePokemon } from "../hooks/useSinglePokemon";
 import { useFavorite } from "../hooks/useFavorite";
+import Page404, { PageCenterContainer } from "../components/Page404";
 
 const PolemonDetailPage: React.FC = () => {
   const { asPath } = useRouter();
@@ -19,8 +20,14 @@ const PolemonDetailPage: React.FC = () => {
   });
   const favoriteActions = useFavorite();
 
-  if (error) {
-    return null;
+  if (loading) {
+    return (
+      <PageCenterContainer>
+        <CircularProgress />
+      </PageCenterContainer>
+    );
+  } else if (error || !pokemonData?.pokemonByName) {
+    return <Page404 />;
   }
 
   return (
@@ -38,15 +45,11 @@ const PolemonDetailPage: React.FC = () => {
         >
           Back to list
         </Button>
-        {loading ? (
-          <CircularProgress />
-        ) : (
-          <PokemonCard
-            pokemonData={pokemonData!!.pokemonByName}
-            favoriteActions={favoriteActions}
-            showDetail={true}
-          />
-        )}
+        <PokemonCard
+          pokemonData={pokemonData!!.pokemonByName}
+          favoriteActions={favoriteActions}
+          showDetail={true}
+        />
       </Box>
     </>
   );

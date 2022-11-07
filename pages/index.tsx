@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import Head from "next/head";
 import styled from "@emotion/styled";
-import { CircularProgress } from "@mui/material";
+import { CircularProgress, Typography } from "@mui/material";
 import Filters, { FiltersType } from "../components/Filters";
 import PokemonList from "../components/PokemonList";
 import { usePokemons } from "../hooks/usePokemons";
+import { PageCenterContainer } from "../components/Page404";
+import { grey } from "@mui/material/colors";
 
 const PageContainer = styled.div`
   display: flex;
@@ -19,14 +21,21 @@ const Home: React.FC = () => {
     isFavorite: false,
     isGrid: true,
   });
-  const { data, error, loading, fetchMore, refetch } = usePokemons({
+  const {
+    data,
+    error: apiError,
+    loading,
+    fetchMore,
+    refetch,
+  } = usePokemons({
     offset: 0,
     search: filters.search,
     type: filters.type,
     isFavorite: filters.isFavorite ? filters.isFavorite : undefined,
   });
-  const list = data?.pokemons?.edges || []; //TODO: build empty page
+  const list = data?.pokemons?.edges || [];
   const totalCount = data?.pokemons?.count || 0;
+  const error = apiError || list.length === 0;
 
   const onFetchMore = () => {
     if (list.length < totalCount) {
@@ -56,12 +65,20 @@ const Home: React.FC = () => {
       </Head>
       <PageContainer>
         <Filters filters={filters} setFilters={setFilters} />
-        <PokemonList
-          items={list}
-          fetchMore={onFetchMore}
-          refetch={refetch}
-          filters={filters}
-        />
+        {!loading && error ? (
+          <PageCenterContainer>
+            <Typography variant="h5" color={grey[500]}>
+              No pokemon here
+            </Typography>
+          </PageCenterContainer>
+        ) : (
+          <PokemonList
+            items={list}
+            fetchMore={onFetchMore}
+            refetch={refetch}
+            filters={filters}
+          />
+        )}
       </PageContainer>
       {loading && <CircularProgress />}
     </>

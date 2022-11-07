@@ -1,10 +1,12 @@
 import {
   FormControl,
+  IconButton,
   InputLabel,
   MenuItem,
   Select,
   SelectChangeEvent,
 } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 import { useType } from "../../hooks/useType";
 import styles from "./TypeSelector.styles";
 
@@ -40,6 +42,11 @@ const TypeSelector: React.FC<TypeSelector> = ({ type, setType }) => {
           </MenuItem>
         ))}
       </Select>
+      {type && (
+        <IconButton sx={styles.clearIcon} onClick={() => setType("")}>
+          <CloseIcon />
+        </IconButton>
+      )}
     </FormControl>
   );
 };
