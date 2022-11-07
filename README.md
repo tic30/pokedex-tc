@@ -10,7 +10,7 @@ This project is visible at https://pokedex-tc.web.app/ hosted by [Firebase](http
 
 ## Run the repo
 
-To run the project locally:
+To run the project locally, first make sure you use `npm 8` and `node 18`:
 
 ```bash
 # Build & run production version for better performance

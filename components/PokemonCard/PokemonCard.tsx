@@ -45,6 +45,10 @@ const PokemonCard = React.forwardRef<HTMLDivElement, PokemonCardProps>(
       previousEvolutions,
     } = pokemonData;
     const { setFavorite, setUnfavorite } = favoriteActions;
+    /**
+     * sort previousEvolutions and evolutions by #
+     * so that evolution list will always go from the most devoluted to most evoluted
+     */
     const sortedPreviousEvolutions = previousEvolutions
       ? [...previousEvolutions].sort(sortById)
       : [];
@@ -121,7 +125,7 @@ const PokemonCard = React.forwardRef<HTMLDivElement, PokemonCardProps>(
                 <LinearProgress
                   variant="determinate"
                   color="secondary"
-                  value={maxCP!! / 40} // Based on the highest which is Mewtwo
+                  value={maxCP!! / 40} // maxCP/4000*100 to get % number. 4k is Based on the highest CP Mewtwo ~3.9k
                   sx={styles.cpBar}
                 />
                 <Typography variant="h6">{`CP: ${maxCP}`}</Typography>
@@ -130,7 +134,7 @@ const PokemonCard = React.forwardRef<HTMLDivElement, PokemonCardProps>(
                 <LinearProgress
                   variant="determinate"
                   color="success"
-                  value={maxHP!! / 45} // Based on the highest which is Mewtwo
+                  value={maxHP!! / 45} // Based on the highest HP, still Mewtwo ~4.1k
                   sx={styles.cpBar}
                 />
                 <Typography variant="h6">{`HP: ${maxHP}`}</Typography>

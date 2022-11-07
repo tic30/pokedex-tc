@@ -40,6 +40,12 @@ export type UseFavoriteReturnType = {
   ) => Promise<void>;
 };
 
+/**
+ * This hook favorites/unfavorites an individual Pokemon
+ * @param refetch The bulk query refetch function, which is called only in favorite tab to update the list
+ * @param isFavoriteTab
+ * @returns `setFavorite` and `setUnfavorite` functions
+ */
 export const useFavorite = (
   refetch?: RefetchType,
   isFavoriteTab = false

@@ -37,6 +37,7 @@ const Home: React.FC = () => {
   const totalCount = data?.pokemons?.count || 0;
   const error = apiError || list.length === 0;
 
+  // This plus custom merge function in utils/apollo-client achieves infinite scroll
   const onFetchMore = () => {
     if (list.length < totalCount) {
       fetchMore({
@@ -52,6 +53,7 @@ const Home: React.FC = () => {
   };
 
   useEffect(() => {
+    // Refetch on load of the favorite tab to get the most up to date data
     if (filters.isFavorite) {
       refetch();
     }
