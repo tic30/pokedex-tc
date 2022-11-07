@@ -32,7 +32,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 - React testing library is [setup](https://nextjs.org/docs/testing#jest-and-react-testing-library).
 - I did not have time to do complehensive testing. However two tests have been created for demo purpose:
   - utils/sortById
-  -
+  - hooks/useFavorite
 
 ## Browsers and screen sizes tested
 
