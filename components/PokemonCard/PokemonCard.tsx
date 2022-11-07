@@ -121,7 +121,7 @@ const PokemonCard = React.forwardRef<HTMLDivElement, PokemonCardProps>(
                 <LinearProgress
                   variant="determinate"
                   color="secondary"
-                  value={maxCP / 40} // Based on the highest which is Mewtwo
+                  value={maxCP!! / 40} // Based on the highest which is Mewtwo
                   sx={styles.cpBar}
                 />
                 <Typography variant="h6">{`CP: ${maxCP}`}</Typography>
@@ -130,7 +130,7 @@ const PokemonCard = React.forwardRef<HTMLDivElement, PokemonCardProps>(
                 <LinearProgress
                   variant="determinate"
                   color="success"
-                  value={maxHP / 45} // Based on the highest which is Mewtwo
+                  value={maxHP!! / 45} // Based on the highest which is Mewtwo
                   sx={styles.cpBar}
                 />
                 <Typography variant="h6">{`HP: ${maxHP}`}</Typography>
@@ -138,17 +138,21 @@ const PokemonCard = React.forwardRef<HTMLDivElement, PokemonCardProps>(
               <Box sx={styles.statsWrapper}>
                 <Card sx={styles.statsCard}>
                   <Typography variant="h6">Weight</Typography>
-                  <Typography>{`${weight.minimum} - ${weight.maximum}`}</Typography>
+                  <Typography>{`${weight!!.minimum} - ${
+                    weight!!.maximum
+                  }`}</Typography>
                 </Card>
                 <Card sx={styles.statsCard}>
                   <Typography variant="h6">Height</Typography>
-                  <Typography>{`${height.minimum} - ${height.maximum}`}</Typography>
+                  <Typography>{`${height!!.minimum} - ${
+                    height!!.maximum
+                  }`}</Typography>
                 </Card>
               </Box>
               <Typography variant="h6" sx={styles.evolutionTitle}>
                 Evolutions
               </Typography>
-              {previousEvolutions.length > 0 || evolutions.length > 0 ? (
+              {previousEvolutions!!.length > 0 || evolutions!!.length > 0 ? (
                 <Box sx={styles.evolutions}>
                   {sortedPreviousEvolutions.map((item) => (
                     <Fragment key={item.name}>

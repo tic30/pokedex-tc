@@ -4,6 +4,10 @@ const nextConfig = {
   swcMinify: true,
   images: {
     unoptimized: true
+  },
+  i18n: {
+    locales: ["en"],
+    defaultLocale: "en",
   }
 }
 

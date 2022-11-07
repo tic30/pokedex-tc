@@ -6,14 +6,15 @@ interface PokemonDimension {
 interface Pokemon {
   id: string;
   name: string;
-  weight: PokemonDimension;
-  height: PokemonDimension;
+  number?: number;
+  weight?: PokemonDimension;
+  height?: PokemonDimension;
   types: string[];
-  maxCP: number;
-  maxHP: number;
-  evolutions: Pokemon[];
-  previousEvolutions: Pokemon[];
+  maxCP?: number;
+  maxHP?: number;
+  evolutions?: Pokemon[];
+  previousEvolutions?: Pokemon[];
   image: string;
-  sound: string;
+  sound?: string;
   isFavorite: boolean;
 }
